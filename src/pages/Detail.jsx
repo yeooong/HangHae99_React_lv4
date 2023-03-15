@@ -1,10 +1,9 @@
 import React from "react";
+import DetailBox from "../redux/components/DetailBox/DetailBox";
 
 function Detail() {
     return (
-        <div>
-            detail page
-        </div>
+        <DetailBox />
     )
 };
 
