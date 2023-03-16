@@ -90,16 +90,15 @@ function DetailBox() {
     return (
         <DetailContainer>
             <CardBox>
-                <tr>
-                    <th>TITLE : {card?.title}</th>
-                </tr>
-                <tr>
-                    <td>ID : {card?.id}</td>
-                </tr>
-                <tr>
-                    <td>COMMENTS : </td>
-                    <td>{card?.comments}</td>
-                </tr>
+                <div>
+                    <h1>TITLE : {card?.title}</h1>
+                </div>
+                <div>
+                    <h5>ID : {card?.id}</h5>
+                </div>
+                <Commentdiv>
+                    <h5>{card?.comments}</h5>
+                </Commentdiv>
             </CardBox>
             <div>
                 <input
@@ -152,19 +151,31 @@ export default DetailBox;
 
 const DetailContainer = styled.div`
     border: 1px solid hotpink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: auto;
+`
+
+const CardBox = styled.table`
+    border: 2px dotted blueviolet;
     height: 500px;
     width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: auto;
 `
 
-const CardBox = styled.table`
-    border: 2px dotted violet;
-    height: 450px;
-    width: 400px;
+const Commentdiv = styled.div`
+    border: 1px dotted blueviolet;
+    height: 350px;
+    width: 300px;
+    overflow-y: auto;
+    margin: auto;
+    padding: 10px;
 `
 
 const ButtonBox = styled.div`

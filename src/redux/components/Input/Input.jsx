@@ -96,12 +96,15 @@ function Input () {
                         placeholder="컨텐츠 제목을 입력해주세요."
                         value={title}
                         onChange={onChangeTitleHandler}
+                        minlength="10" required
                     />
                     <label>컨텐츠 평가</label>
                     <input
                         placeholder="컨텐츠에 대한 평가를 입력해주세요."
                         value={comments}
                         onChange={onChangeCommenstHandler}
+                        required
+
                     />
                     <Button type="submit" backgroundColor="hotpink" >평가완료</Button>
                 </RightMarginBox>
