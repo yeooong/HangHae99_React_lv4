@@ -1,19 +1,22 @@
 import React from "react";
 import { useState } from "react";
 import nextId from "react-id-generator";
-import { useDispatch } from "react-redux";
-import { addCard } from "../../modules/cards";
+// import { useDispatch } from "react-redux";
+// import { addCard } from "../../modules/cards";
 import Button from "../common/Button";
 import RightMarginBox from "../common/RightMarginBox";
+import axios from "axios";
 
 function Input () {
     const id = nextId();
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     // 컴포넌트 내부에서 사용할 state(제목, 코멘트)
     const [title, setTitle] = useState("");
     const [comments, setComments] = useState("");
+
+    // const [card, setCard] = useState({});
 
     // title의 변경을 감지하는 함수
     const onChangeTitleHandler = (e) => {
@@ -36,37 +39,57 @@ function Input () {
         }
     }
 
-    // form 태그 내부에서의 submit이 실행된 경우 호출되는 함수
-    const onSubmitHandler = (e) => {
-        // submit의 고유 기능인 새로고침(refresh)을 막아주는 역할
+    // // form 태그 내부에서의 submit이 실행된 경우 호출되는 함수
+    // const onSubmitHandler = (e) => {
+    //     // submit의 고유 기능인 새로고침(refresh)을 막아주는 역할
+    //     e.preventDefault();
+
+    //     // title과 comments가 하나라도 없는 경우 오류발생
+    //     if (!title || !comments) {
+    //         return getErrorMsg("01", {title, comments})
+    //     }
+
+    //     // 추가하려는 card를 newTodo라는 객체로 새로 만듦
+    //     const newCard = {
+    //         title,
+    //         comments,
+    //         id,
+    //     };
+
+    //     // card를 추가하는 reducer 호출
+    //     // 인자 : payload
+    //     dispatch(addCard(newCard));
+
+    //     // // state 두 개를 초기화
+    //     setTitle("");
+    //     setComments("");
+
+    // };
+
+    const onSubmitHandler = async(e) => {
         e.preventDefault();
 
-        // title과 comments가 하나라도 없는 경우 오류발생
         if (!title || !comments) {
-            return getErrorMsg("01", {title, comments})
-        }
+            return getErrorMsg("01", { title, comments })
+        };
 
-        // 추가하려는 card를 newTodo라는 객체로 새로 만듦
         const newCard = {
             title,
             comments,
             id,
         };
-
-        // card를 추가하는 reducer 호출
-        // 인자 : payload
-        dispatch(addCard(newCard));
-
-        // // state 두 개를 초기화
+    
+        await axios.post(`${process.env.REACT_APP_WEBTOON}/webtoon`, newCard);
+        
         setTitle("");
         setComments("");
-
     };
 
 
     return (
         <div>
-            <form onSubmit={onSubmitHandler}>
+            <form 
+            onSubmit={onSubmitHandler}>
                 <RightMarginBox margin={10}>
                     <label>컨텐츠 제목</label>
                     <input
